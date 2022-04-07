@@ -10,6 +10,7 @@ Come and get a random Bandcamp album!
 
 It uses BeautifulSoup to do the scrapping in the Bandcamp Artist Index,
 pulling a random artist from it.
+
 The script then gets a random album from the artist along with some info
 about it. 
 
