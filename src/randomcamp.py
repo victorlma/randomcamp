@@ -3,8 +3,8 @@ from random import randint, choice
 from bs4 import BeautifulSoup as bs
 
 BASE_URL = "https://bandcamp.com/artist_index?page="
-IFRAME_START = '<iframe style="border: 0; width: 350px; height: 670px;" src="https://bandcamp.com/EmbeddedPlayer/v=2/'
-IFRAME_END = '/size=large/bgcol=333333/linkcol=ffffff/tracklist=true/transparent=true/" seamless></iframe>'
+IFRAME_START = '<iframe style="border: 0;" src="https://bandcamp.com/EmbeddedPlayer/v=2/'
+IFRAME_END = '/size=large/bgcol=333333/linkcol=ffffff/minimal=true/tracklist=false/transparent=true/" seamless></iframe>'
 
 def rq_txt(url):
     return rq.get(url).text
@@ -33,17 +33,35 @@ def pick_album(tree, artist_link):
     if album_link[0] != "h":
         album_link = artist_link + album_link
     ntree = bs(rq_txt(album_link), "lxml")
-    return ntree.find("meta", attrs={"property":"og:video:secure_url"})
+    return ntree, ntree.find("meta", attrs={"property":"og:video:secure_url"})
 
 
-def get_album_iframe(artist_link):
+def get_album_info(tree):
+    album_info = ''
+    names = tree.find('div', id="name-section")
+    about = tree.find('div', class_="tralbumData tralbum-about")
+    cred = tree.find('div', class_="tralbumData tralbum-credits")
+
+    if names:
+        album_info += str(names)
+    if about:
+        album_info += str(about)
+    if cred:
+        album_info += str(cred)
+
+    return album_info
+
+def get_album_iframe_and_info(artist_link):
     tree = bs(rq_txt(artist_link), "lxml")
     
-    ntree = tree.find("meta", attrs={"property":"og:video:secure_url"})
-    if ntree == None:
-        ntree = pick_album(tree, artist_link[:-6])
-    album_id = ntree.get('content').split('/')[5]
-    return IFRAME_START + album_id + IFRAME_END
+    ntree_album = tree.find("meta", attrs={"property":"og:video:secure_url"})
+    ntree = tree
+    if ntree_album == None:
+        ntree, ntree_album = pick_album(tree, artist_link[:-6])
+    
+    album_info = get_album_info(ntree)
+    album_id = ntree_album.get('content').split('/')[5]
+    return IFRAME_START + album_id + IFRAME_END, album_info
 
 
         
@@ -53,7 +71,8 @@ def get_random_album():
 
     artist_link = pick_artist(tree)
 
-    iframe = get_album_iframe(artist_link)
-    print(iframe)
+    iframe, info = get_album_iframe_and_info(artist_link)
+    return iframe, info
+
 if __name__ == "__main__":
     get_random_album()
