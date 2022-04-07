@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RandomCamp!</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header item-full">
+                RandomCamp!
+            </div>
+            <div class="content item-full">
+                <div class ="item-wrapper">
+                    <div class="item-80">
+                        {{ info |safe }}
+                    </div>
+                    <div class="item-20">
+                        {{ iframe |safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="footer item-full">
+                Made by Zero445 † Github: <a href="https://github.com/victorlma">victorlma</a>
+            </div>
+        </div>
+    </body>
+</html>

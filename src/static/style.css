@@ -1,0 +1,102 @@
+:root{
+    --bg: hsl(246,5%,8%);
+    --highlight: hsl(191,68%,57%);
+    --text: hsl(100,100%, 100%);
+}
+
+a {
+    text-decoration: none;
+    color: var(--highlight)
+}
+a:visited {
+    text-decoration: none;
+    color: var(--highlight)
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.item-full {
+    border: 2px solid var(--highlight);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    width: 100%;
+}
+.header {
+    font-family: "Rubik Wet Paint"; 
+    font-size: 48px;
+    text-align: center;
+    color: var(--bg);
+    background: var(--highlight);
+    font-weight: bold;
+}
+.content {
+    padding: 2%;
+    min-height: 600px;
+    border: 0;
+}
+.footer {
+    text-align: center;
+    border-radius: 0;
+    color: var(--bg);
+    background: var(--highlight);
+    font-weight: bold;
+}
+.footer a {
+    color: var(--text);
+}
+.footer a:visited {
+    color: var(--text);
+}
+.container {
+    margin: 2% auto;
+    max-width: 55%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.item-80 {
+    margin:0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-grow: 10;
+}
+.item-20 {
+    flex-grow: 1;
+}
+
+.item-wrapper {
+    padding: 1em;
+    display:flex;
+}
+
+iframe {
+    width: 236px;
+    height: 350px;
+}
+@media screen and (max-width: 900px) {
+    .container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 672px) {
+    .container {
+        max-width: 100%;
+    }
+    .item-wrapper {
+        flex-wrap: wrap;
+    }
+    .item-80 {
+        flex-grow: 4;
+        order:2;
+    }
+    iframe {
+        width: 280px;
+        height: 450px;
+        margin: 0 auto;
+        display: block;
+    }
+}
