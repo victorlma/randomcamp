@@ -2,8 +2,9 @@ from flask import Flask, render_template
 import randomcamp
 app = Flask(__name__)
 
-@app.route('/')
-def main_page():
+@app.route('/', defaults={'path':''})
+@app.route('/<path:path>')
+def main_page(path):
     random_album_iframe, album_info = randomcamp.get_random_album() 
     return render_template("base.html", iframe = random_album_iframe, info = album_info)
 
