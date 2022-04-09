@@ -8,6 +8,10 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
         </style>
+        <script
+              src="https://code.jquery.com/jquery-3.6.0.js"
+              integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+              crossorigin="anonymous"></script>
     </head>
     <body>
         <div class="container">
@@ -17,10 +21,10 @@
             <div class="content item-full">
                 <div class ="item-wrapper">
                     <div class="item-80">
-                        {{ info |safe }}
+                        GETTING A RANDOM ALBUM
                     </div>
                     <div class="item-20">
-                        {{ iframe |safe }}
+                        PLEASE WAIT!
                     </div>
                 </div>
             </div>
@@ -28,5 +32,17 @@
                 Made by Zero445 † Github: <a href="https://github.com/victorlma">victorlma</a>
             </div>
         </div>
+        <script>
+            $(document).ready( function () {
+                            $.ajax({
+                                        type: 'GET',
+                                        url: '/getalbum',
+                                        success: function (response) {
+                                               $('.item-80').html(response.album_info);
+                                               $('.item-20').html(response.album_iframe);
+                                                        }
+                                        });
+                        });
+        </script>
     </body>
 </html>
